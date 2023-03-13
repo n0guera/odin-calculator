@@ -15,21 +15,25 @@ body {
     height: 50px;
     width: 300px;
     border: 2px grey solid;
+    font-family: Cambria, serif;
+    font-size: 35px;
+    display: flex;
+    align-items: center;
 }
 
-.buttons {
+#buttons {
     display: flex;
     flex-direction: row;
 }
 
-.buttons button {
+#buttons button {
     margin: 1px;
     border: 2px grey solid;
     font-size: 40px;
     background-color: rgb(171, 253, 253);
 }
 
-.numbers {
+#numbers {
     display: grid;
     grid-template-columns: repeat(3, 70px);
     grid-template-rows: repeat(3, 70px);
