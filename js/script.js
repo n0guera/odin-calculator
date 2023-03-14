@@ -1,38 +1,50 @@
 const display = document.querySelector('#display');
 
 const numberButtons = document.querySelectorAll('.number');
-for (let i = 0; i < numberButtons.length; i++) {
-    numberButtons[i].addEventListener('click', toDisplay);
-}
 
 const operatorButtons = document.querySelectorAll('.operator');
-for (let i = 0; i < operatorButtons.length; i++) {
-    operatorButtons[i].addEventListener('click', toDisplay);
-}
 
 const clearButton = document.querySelector('#clear');
 clearButton.addEventListener('click', clearDisplay);
 
+const equalsButton = document.querySelector('#equals');
+
+const resultOnDisplay = false;
+
+for (let i = 0; i < numberButtons.length; i++) {
+    numberButtons[i].addEventListener('click', function(e) {
+        let currentString = display.textContent;
+        let lastChar = currentString[currentString.length - 1];
+
+        if (resultOnDisplay === false) {
+            display.textContent += e.target.textContent;
+        } else if (resultOnDisplay === true && lastChar === '+' || lastChar === '-' || lastChar === '*' || lastChar === '/') {
+            resultOnDisplay = false;
+            display.textContent += e.target.textContent;
+        } else {
+            resultOnDisplay = false;
+            clearDisplay();
+            display.textContent += e.target.textContent;
+        }
+    });
+}
+
+for (let i = 0; i < operatorButtons.length; i++) {
+    operatorButtons[i].addEventListener('click', function(e) {
+        let currentString = display.textContent;
+        let lastChar = currentString[currentString.length - 1];
+
+        if (lastChar === '+' || lastChar === '-' || lastChar === '*' || lastChar === '/') {
+            let newString = currentString.substring(0, currentString.length - 1) + e.target.textContent;
+            display.textContent = newString;
+        } else if (currentString.length === 0) {
+            ;
+        } else {
+            display.textContent += e.target.textContent;
+        }
+    });
+}
+
 function clearDisplay() {
     display.textContent = null;
-}
-
-function toDisplay() {
-    display.textContent += this.textContent;
-}
-
-function add(num1, num2) {
-    return num1 + num2;
-}
-
-function subtract(num1, num2) {
-    return num1 - num2;
-}
-
-function multiply(num1, num2) {
-    return num1 * num2;
-}
-
-function divide(num1, num2) {
-    return num1 / num2;
 }
